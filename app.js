@@ -8,7 +8,7 @@ var logger = require('morgan');
 
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/users/usersRouter');
 const mongoose = require("mongoose")
 
 mongoose.connect(process.env.MONGODB_URI)
