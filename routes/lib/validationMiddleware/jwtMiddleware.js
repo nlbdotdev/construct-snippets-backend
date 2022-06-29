@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken')
 // Validate token before moving on
 const jwtMiddleware = async (req, res, next) => {
 
-    // console.log('jwtMiddleware')
-    // console.log(req.headers)
+    console.log('jwtMiddleware')
+    console.log(req.headers)
 
     try {
         if (req.headers && req.headers.authorization) {

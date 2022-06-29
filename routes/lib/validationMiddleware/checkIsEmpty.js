@@ -3,8 +3,8 @@ const { isEmpty } = require('validator');
 // Validate every property in request object has data
 function checkIsEmpty(req, res, next) {
 
-    // console.log("Check is empty")
-    // console.log(req.body)
+    console.log("Check is empty")
+    console.log(req.body)
 
     let errObj = {}
 

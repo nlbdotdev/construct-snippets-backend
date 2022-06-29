@@ -1,12 +1,12 @@
-const { isAlpha, isAlphanumeric, isStrongPassword} = require('validator')
+const { isAlpha, isAlphanumeric, isStrongPassword } = require('validator')
 
 // Validate format of user properties
 function validateUserData(req, res, next) {
 
-    // console.log('Validate user data')
-    // console.log(req.body)
+    console.log('Validate user data')
+    console.log(req.body)
 
-    const { firstName, lastName, username, email, password } = req.body
+    const { firstName, lastName, username, password } = req.body
     let errObj = {}
 
     if (!isAlpha(firstName)) {
@@ -21,7 +21,7 @@ function validateUserData(req, res, next) {
         errObj.username = "Username should not have special characters."
     }
 
-    if (!isStrongPassword(password)) {
+    if (!isStrongPassword(password, { minSymbols: 0 })) {
         errObj.password = "Password is invalid, must contain: at least 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number, 1 special character."
     }
 

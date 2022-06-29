@@ -3,8 +3,8 @@ const { isEmail } = require('validator')
 // Validate email format only
 function validateEmail(req, res, next) {
 
-    // console.log("Validate email")
-    // console.log(req.body)
+    console.log("Validate email")
+    console.log(req.body)
 
     const { email } = req.body
     let errObj = {}

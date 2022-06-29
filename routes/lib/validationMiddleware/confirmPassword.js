@@ -1,8 +1,8 @@
 // Compares password and confirmation password
 function confirmPassword(req, res, next) {
 
-    // console.log('Confirm password')
-    // console.log(req.body)
+    console.log('Confirm password')
+    console.log(req.body)
 
     const { password, confirmPassword } = req.body
     let errObj = {}
