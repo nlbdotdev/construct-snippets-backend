@@ -60,11 +60,12 @@ const userLogin = async (req, res) => {
         const foundUser = await User.findOne({ email: email })
         // More secure to use same error to obscure email
         // if (foundUser === null) throw { message: "Email not found" }
-        if (foundUser === null) throw { message: "No user found for this email/password" }
+
+        if (foundUser === null) throw { message: "No user found for this email/password", type: "nomatch" }
 
         // Validate password
         const comparedPassword = await bcrypt.compare(password, foundUser.password)
-        if (!comparedPassword) throw { message: "No user found for this email/password" }
+        if (!comparedPassword) throw { message: "No user found for this email/password", type: "nomatch" }
 
         // Generate a token on sucesful login
         const jwtToken = jwt.sign(
@@ -79,7 +80,7 @@ const userLogin = async (req, res) => {
         )
         res.status(200).json({ payload: jwtToken })
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        res.status(500).json({ error: error.message, type: error.type })
     }
 }
 
