@@ -6,16 +6,8 @@ function validateUserData(req, res, next) {
     console.log('Validate user data')
     console.log(req.body)
 
-    const { firstName, lastName, username, password } = req.body
+    const {username, password } = req.body
     let errObj = {}
-
-    if (!isAlpha(firstName)) {
-        errObj.firstName = "First name should only have letters."
-    }
-
-    if (!isAlpha(lastName)) {
-        errObj.lastName = "Last name should only have letters."
-    }
 
     if (!isAlphanumeric(username)) {
         errObj.username = "Username should not have special characters."
