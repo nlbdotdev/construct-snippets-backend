@@ -14,7 +14,7 @@ function validateUserData(req, res, next) {
     }
 
     if (!isStrongPassword(password, { minSymbols: 0 })) {
-        errObj.password = "Password is invalid, must contain: at least 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number, 1 special character."
+        errObj.password = "Password is invalid, must contain: at least 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number."
     }
 
     if (Object.keys(errObj).length > 0) {
