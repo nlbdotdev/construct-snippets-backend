@@ -8,9 +8,10 @@ const hashPassword = async (password) => {
     return hashedPassword
 }
 
-// Fetch user via email and JWT
+// Fetch user via id in JWT
 const getUserFromToken = async (decodedToken) => {
-    return await User.findOne({ email: decodedToken.email })
+
+    return await User.findById(decodedToken.userId)
 }
 
 module.exports = {
