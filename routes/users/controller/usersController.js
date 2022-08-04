@@ -77,11 +77,21 @@ const userLogin = async (req, res) => {
     }
 }
 
+// Verify session
+const authenticateUser = async (req, res) => {
+    try {
+        const foundUser = await getUserFromToken(res.locals.decodedToken)
+        res.status(200).json({ message: "Session valid", payload: true });
+    } catch (error) {
+        res.status(500).json({ error: errorHandler(error) });
+    }
+}
+
 // Get current user from bearer token
 const getCurrentUser = async (req, res) => {
     try {
         const foundUser = await getUserFromToken(res.locals.decodedToken)
-        res.status(200).json({ message: "Current user", payload: foundUser });
+        res.status(200).json({ message: "Current user", payload: cleanUser(foundUser) });
     } catch (error) {
         res.status(500).json({ error: errorHandler(error) });
     }
@@ -114,4 +124,5 @@ module.exports = {
     userLogin,
     updateProfile,
     getCurrentUser,
+    authenticateUser,
 }
