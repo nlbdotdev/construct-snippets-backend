@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
+const snippetSchema = new mongoose.Schema({
     title: { type: String, unique: true },
     desc: { type: String },
     type: { type: String },
@@ -10,4 +10,4 @@ const userSchema = new mongoose.Schema({
     { timestamps: true }
 )
 
-module.exports = mongoose.model('snippet', userSchema)
+module.exports = mongoose.model('snippet', snippetSchema)
