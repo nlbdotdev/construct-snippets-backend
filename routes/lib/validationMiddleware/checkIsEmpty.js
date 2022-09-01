@@ -10,7 +10,8 @@ function checkIsEmpty(req, res, next) {
 
     const body = req.body
     for (const key in body) {
-        if (isEmpty(body[key])) {
+
+        if (typeof (body[key]) === 'string' && isEmpty(body[key])) {
             errObj[key] = `${key} cannot be left blank.`
         }
     }
