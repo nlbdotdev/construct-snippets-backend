@@ -1,28 +1,40 @@
-const User = require("../model/User")
+const Snippet = require("../model/Snippet")
 
 const createSnippet = async (req, res) => {
+
+    console.log('Create Snippet')
+
     try {
 
         // Create user with body params and hashed password
-        const { firstName, lastName, username, email, password } = req.body
-        let hashedPassword = await hashPassword(password)
-        let newUser = new User({
-            firstName: firstName,
-            lastName: lastName,
-            username: username,
-            email: email,
-            password: hashedPassword, 
-        })
-        let savedUser = await newUser.save()
+        // const { firstName, lastName, username, email, password } = req.body
+
+        console.log(req.body)
+
+        let newSnippet = new Snippet({...req.body})
+
+        let savedSnippet = await newSnippet.save()
+
+        console.log('savedSnippet:',savedSnippet)
+        
+        // let newUser = new User({
+        //     firstName: firstName,
+        //     lastName: lastName,
+        //     username: username,
+        //     email: email,
+        //     password: hashedPassword,
+
+
+        // })
+        // let savedUser = await newUser.save()
 
         // Generate a token on sucesful login
-        const jwtToken = getToken(savedUser._id)
-        res.cookie('session_token', jwtToken)
-        res.status(200).json({ message: "success", payload: cleanUser(savedUser) })
 
+        console.log('snippet created?')
+        res.status(200).json({ message: "success", payload: 'test' })
     } catch (error) {
         console.log(error)
-        res.status(500).json({ message: "error", error: errorHandler(error) })
+        res.status(500).json({ message: "error", error: error })
     }
 }
 

@@ -8,6 +8,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users/usersRouter');
+snippetsRouter = require('./routes/snippets/snippetsRouter')
 const mongoose = require("mongoose")
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/', indexRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/snippets', snippetsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
