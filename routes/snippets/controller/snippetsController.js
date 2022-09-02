@@ -11,8 +11,9 @@ const createSnippet = async (req, res) => {
         // Get current user and associate with new snippet
         const foundUser = await getUserFromToken(res.locals.decodedToken)
         const author = foundUser.id
+        const authorName = foundUser.username
         // Create new snippet
-        const newSnippet = new Snippet({ ...req.body, author })
+        const newSnippet = new Snippet({ ...req.body, author, authorName })
         const savedSnippet = await newSnippet.save()
         // Add new snippet to user's collection
         foundUser.snippets.push(savedSnippet.id)
