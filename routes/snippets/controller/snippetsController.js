@@ -14,6 +14,10 @@ const createSnippet = async (req, res) => {
         // Create new snippet
         const newSnippet = new Snippet({ ...req.body, author })
         const savedSnippet = await newSnippet.save()
+        // Add new snippet to user's collection
+        foundUser.snippets.push(savedSnippet.id)
+        await foundUser.save()
+        // console.log('snippet owner:', foundUser)
 
         res.status(200).json({ message: "success", payload: savedSnippet })
     } catch (error) {
