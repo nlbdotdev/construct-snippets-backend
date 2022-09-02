@@ -1,4 +1,6 @@
 const Snippet = require("../model/Snippet")
+const User = require("../../users/model/User")
+const { getUserFromToken } = require("../../users/utils/userFunctions")
 
 const createSnippet = async (req, res) => {
 
@@ -6,32 +8,14 @@ const createSnippet = async (req, res) => {
 
     try {
 
-        // Create user with body params and hashed password
-        // const { firstName, lastName, username, email, password } = req.body
+        // Get current user and associate with new snippet
+        const foundUser = await getUserFromToken(res.locals.decodedToken)
+        const author = foundUser.id
+        // Create new snippet
+        const newSnippet = new Snippet({ ...req.body, author })
+        const savedSnippet = await newSnippet.save()
 
-        console.log(req.body)
-
-        let newSnippet = new Snippet({...req.body})
-
-        let savedSnippet = await newSnippet.save()
-
-        console.log('savedSnippet:',savedSnippet)
-        
-        // let newUser = new User({
-        //     firstName: firstName,
-        //     lastName: lastName,
-        //     username: username,
-        //     email: email,
-        //     password: hashedPassword,
-
-
-        // })
-        // let savedUser = await newUser.save()
-
-        // Generate a token on sucesful login
-
-        console.log('snippet created?')
-        res.status(200).json({ message: "success", payload: 'test' })
+        res.status(200).json({ message: "success", payload: savedSnippet })
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: "error", error: error })

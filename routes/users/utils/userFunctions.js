@@ -10,7 +10,6 @@ const hashPassword = async (password) => {
 
 // Fetch user via id in JWT
 const getUserFromToken = async (decodedToken) => {
-
     return await User.findById(decodedToken.userId)
 }
 
