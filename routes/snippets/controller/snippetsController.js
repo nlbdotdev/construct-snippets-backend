@@ -47,11 +47,36 @@ const updateSnippet = async (req, res) => {
     // }
 }
 
+const getAllSnippets = async (req, res) => {
+    try {
+        const allSnippets = await Snippet.find()
+        res.status(200).json({ message: "success", payload: allSnippets })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "error", error: error })
+    }
+}
+
+const getMySnippets = async (req, res) => {
+    try {
+         // Get current user and associate with new snippet
+         const user = await getUserFromToken(res.locals.decodedToken)
+
+        const mySnippets = await Snippet.find({author: user.id })
+        res.status(200).json({ message: "success", payload: mySnippets })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "error", error: error })
+    }
+}
+
 const getSnippet = async (req, res) => {
 }
 
 module.exports = {
     createSnippet,
     updateSnippet,
+    getAllSnippets,
+    getMySnippets,
     getSnippet,
 }
